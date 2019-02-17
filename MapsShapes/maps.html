@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      #map {
+        height: 450px;
+        margin-top: 20px;
+        display: none;
+        }
+        #tabl{
+          display: none;
+          margin-top: 20px;
+        }
+        #form{
+          margin-top: 100px;
+          margin-left: 530px;
+          display: none;
+        }
+      .dashboard{
+        margin-left: 5px;
+        width: 99%;
+        height: 6rem;
+        background-color: #b9ccc8;
+      }
+      .dashcontent1{
+        font-size: 2rem;
+        width: 35%;
+        float: left;
+        padding-top: 1%;
+        padding-left: 10%;
+      }
+      .dashcontent2{
+        font-size: 2rem;
+        width: 35%;
+        float: left;
+        padding-top: 1%;
+      }
+      .dashcontent3{
+        font-size: 2rem;
+        float: left;
+        padding-top: 1%;
+      }
+      .tab{
+        margin-top: 1rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        background-color: #65768c;
+        color:white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard">
+      <div class="dashcontent1">
+        <button class="tab" id="btn1" onclick="myFunction1()">TAB 1</button>
+      </div>
+      <div class="dashcontent2">
+        <button class="tab" onclick="myFunction2()">TAB 2</button>
+      </div>
+      <div class="dashcontent3">
+        <button class="tab" onclick="myFunction3()">TAB 3</button>
+      </div>
+    </div>
+    <table id="tabl" border="1">
+      <tr>
+        <td>&nbsp;column1</td>
+        <td>&nbsp;column2</td>
+      </tr>
+      <tr>
+        <td>&nbsp;column1</td>
+        <td rowspan="2">&nbsp;column2</td>
+      </tr>
+      <tr>
+        <td>&nbsp;column1</td>
+      </tr>
+    </table>
+    <div id="map"></div>
+    <form id="form" method="get" target="_blank">
+      First name: <input type="text" name="fname"><br>
+      Last name: <input type="text" name="lname"><br>
+      <input type="submit" value="Submit" style="margin-left:100px; margin-top:4px;">
+    </form>
+    <script>
+      //deals with hiding and displaying the element
+      function myFunction1() {
+          var x = document.getElementById("map");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+      }
+      function myFunction2() {
+          var x = document.getElementById("tabl");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+      }
+      function myFunction3() {
+          var x = document.getElementById("form");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+      }
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 28.644800, lng: 77.216721},
+          zoom: 6
+        });
+
+      var rectangle = new google.maps.Rectangle({
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35,
+          map: map,
+          bounds : {
+            north: 28.543048,
+            south: 28.343115132,
+            east: 77.14079,
+            west: 76.8536989
+          }
+      });
+      var a = [
+      [76.8559524, 28.400185],
+      [76.8696144, 28.3854157],
+      [76.8796311, 28.3957333],
+      [76.8877189, 28.4035728],
+      [76.8925248, 28.4090852],
+      [76.8928393, 28.4087934],
+      [76.893404, 28.4080159],
+      [76.8936004, 28.4068713],
+      [76.8942142, 28.4055972],
+      [76.8944107, 28.403891],
+      [76.8948035, 28.4025736],
+      [76.8951718, 28.4016018],
+      [76.8962766, 28.4008891],
+      [76.8997631, 28.399442],
+      [76.901359, 28.3990533],
+      [76.9035196, 28.3987293],
+      [76.9066622, 28.3984054],
+      [76.9072269, 28.3986213],
+      [76.9186995, 28.3909024],
+      [76.9214918, 28.3909756],
+      [76.9216637, 28.389442],
+      [76.9217213, 28.3885181],
+      [76.9217923, 28.3871392],
+      [76.9260805, 28.3841303],
+      [76.9448805, 28.3725251],
+      [76.9471551, 28.3716597],
+      [76.948573, 28.3709873],
+      [76.9515171, 28.3693086],
+      [76.9522659, 28.3687944],
+      [76.9516175, 28.3671617],
+      [76.9516565, 28.3665591],
+      [76.9523096, 28.3655348],
+      [76.9523001, 28.3651476],
+      [76.9522603, 28.3643684],
+      [76.9523877, 28.3636001],
+      [76.9525249, 28.3622109],
+      [76.9527433, 28.3614269],
+      [76.9532313, 28.3605505],
+      [76.9537915, 28.3600506],
+      [76.9542382, 28.3594186],
+      [76.9545178, 28.3591334],
+      [76.9552684, 28.3585701],
+      [76.9571494, 28.3570005],
+      [76.9561195, 28.3569945],
+      [76.9561191, 28.3564473],
+      [76.9573246, 28.3565013],
+      [76.9573267, 28.356607],
+      [76.9573286, 28.3567014],
+      [76.9583386, 28.3566958],
+      [76.9584105, 28.3610635],
+      [76.9601282, 28.3610604],
+      [76.9638667, 28.3610535],
+      [76.9642001, 28.3610529],
+      [76.9651835, 28.3615682],
+      [76.9655589, 28.3618005],
+      [76.9659736, 28.3620599],
+      [76.9663627, 28.3620514],
+      [76.9671707, 28.3592872],
+      [76.9674586, 28.3587191],
+      [76.9862863, 28.3472344],
+      [77.0043215, 28.3882571],
+      [77.015501, 28.3830638],
+      [77.0144066, 28.3799885],
+      [77.0220731, 28.3737851],
+      [77.0255131, 28.3775172],
+      [77.0361475, 28.3681112],
+      [77.0471875, 28.3583116],
+      [77.1188819, 28.3701088],
+      [77.1146418, 28.3983352],
+      [77.138683, 28.4072441],
+      [77.1287009, 28.4404645],
+      [77.1277292, 28.4428335],
+      [77.1253919, 28.4502107],
+      [77.1242593, 28.4510201],
+      [77.1238974, 28.4550376],
+      [77.1234764, 28.4597104],
+      [77.1200235, 28.4627232],
+      [77.116455, 28.4672235],
+      [77.1124725, 28.4731841],
+      [77.1141826, 28.4735236],
+      [77.1150614, 28.4815648],
+      [77.1167211, 28.4850054],
+      [77.1176759, 28.4869846],
+      [77.119507, 28.495139],
+      [77.1124785, 28.4984532],
+      [77.1101397, 28.4993961],
+      [77.1053975, 28.5013384],
+      [77.1037667, 28.5024887],
+      [77.1023081, 28.5031016],
+      [77.1000336, 28.5038653],
+      [77.0976518, 28.5048552],
+      [77.0957528, 28.5070803],
+      [77.0986588, 28.5114068],
+      [77.0939182, 28.5138682],
+      [77.0932384, 28.5140471],
+      [77.0925943, 28.5142311],
+      [77.0859574, 28.5161025],
+      [77.0846262, 28.5164992],
+      [77.0840906, 28.5166587],
+      [77.0830606, 28.5169698],
+      [77.0827494, 28.5170898],
+      [77.0804111, 28.5180224],
+      [77.0792948, 28.5182048],
+      [77.0792318, 28.5182128],
+      [77.0774387, 28.5184405],
+      [77.075014, 28.5187138],
+      [77.0747744, 28.5188088],
+      [77.0744668, 28.5189307],
+      [77.073365, 28.5195071],
+      [77.0723002, 28.5202589],
+      [77.0722213, 28.5201457],
+      [77.0720942, 28.5193619],
+      [77.0713662, 28.5175938],
+      [77.0709886, 28.5170499],
+      [77.0688651, 28.5145822],
+      [77.067616, 28.5129745],
+      [77.0671624, 28.5119289],
+      [77.0653494, 28.5125045],
+      [77.0645251, 28.5126891],
+      [77.0633996, 28.5126665],
+      [77.0612165, 28.512224],
+      [77.0606606, 28.5122555],
+      [77.0577011, 28.5127924],
+      [77.0575428, 28.5128211],
+      [77.0543531, 28.5143512],
+      [77.0491721, 28.5160453],
+      [77.0462065, 28.5166427],
+      [77.0485082, 28.52092],
+      [77.0446105, 28.5230838],
+      [77.0433705, 28.5241645],
+      [77.0433583, 28.5251547],
+      [77.0431514, 28.5252371],
+      [77.0424046, 28.5256984],
+      [77.0417144, 28.5260711],
+      [77.0356349, 28.5292442],
+      [77.0356102, 28.5292571],
+      [77.0340499, 28.5300715],
+      [77.0321199, 28.5310788],
+      [77.0298669, 28.5316849],
+      [77.0297824, 28.5317014],
+      [77.0245904, 28.5327132],
+      [77.0232547, 28.5335616],
+      [77.0219253, 28.5347748],
+      [77.0217025, 28.5349596],
+      [77.0197006, 28.536218],
+      [77.0174236, 28.537688],
+      [77.0162809, 28.5392112],
+      [77.0140944, 28.5399982],
+      [77.0134571, 28.5405156],
+      [77.0128497, 28.5402697],
+      [77.0122093, 28.5400104],
+      [77.0101934, 28.5402687],
+      [77.0096859, 28.539869],
+      [77.0086334, 28.5403299],
+      [77.0076539, 28.5397729],
+      [77.0054602, 28.5394958],
+      [77.0043849, 28.537795],
+      [77.0016644, 28.5334918],
+      [77.0013296, 28.5309864],
+      [77.0016511, 28.5308084],
+      [77.0050118, 28.528947],
+      [77.0084757, 28.5270284],
+      [77.0096001, 28.526641],
+      [77.0105771, 28.5257745],
+      [77.0109605, 28.5254514],
+      [77.0146291, 28.5243485],
+      [77.0169637, 28.5210774],
+      [77.0144723, 28.518757],
+      [77.012884, 28.5172777],
+      [77.0125538, 28.5169701],
+      [77.0116413, 28.5161518],
+      [77.0108262, 28.5154209],
+      [77.0105264, 28.5151521],
+      [77.010493, 28.5151221],
+      [77.0100507, 28.5147255],
+      [77.0085304, 28.5151415],
+      [77.0070407, 28.515549],
+      [77.0067265, 28.515635],
+      [77.0059192, 28.5158559],
+      [77.0027227, 28.5172931],
+      [76.9999924, 28.5179713],
+      [76.9990215, 28.5184832],
+      [76.9968081, 28.5197124],
+      [76.9959691, 28.5180316],
+      [76.9953859, 28.5171445],
+      [76.9945276, 28.5176083],
+      [76.9909463, 28.5135677],
+      [76.983382, 28.5169891],
+      [76.9832794, 28.5170355],
+      [76.9812139, 28.5191174],
+      [76.9802327, 28.5198029],
+      [76.9783615, 28.5212481],
+      [76.9760102, 28.5189385],
+      [76.9706299, 28.515795],
+      [76.9620491, 28.5115276],
+      [76.9648243, 28.509661],
+      [76.9762078, 28.4984432],
+      [76.9720448, 28.4914468],
+      [76.9692444, 28.4860356],
+      [76.9665067, 28.4806004],
+      [76.9654443, 28.4787172],
+      [76.9642444, 28.4765902],
+      [76.9607315, 28.4705733],
+      [76.9581786, 28.468231],
+      [76.9537542, 28.4642338],
+      [76.9453408, 28.4568557],
+      [76.9465866, 28.4442302],
+      [76.9069895, 28.4252864],
+      [76.8616645, 28.4410796],
+      [76.8671319, 28.4182734],
+      [76.869179, 28.4060588],
+      [76.8559524, 28.400185]
+    ];
+var coords = buildCoordinatesArrayFromString(a);
+function buildCoordinatesArrayFromString(MultiGeometryCoordinates){
+    var finalData = [];
+    MultiGeometryCoordinates.forEach(function(item, i){
+            finalData.push({
+              lng: parseFloat(item[0]),
+              lat: parseFloat(item[1])
+            });
+          });
+        return finalData;
+        }
+        var polygon = new google.maps.Polygon({
+            paths: coords,
+            strokeColor: '#0037FF',
+            strokeOpacity: 0.8,
+            strokeWeight: 3
+        });
+        polygon.setMap(map);
+        drawRects(rectangle.getBounds(), 15, 15);
+    map.fitBounds(rectangle.getBounds());
+    for (var i = 0; i < polygons.length; i++) {
+      var hidePoly = true;
+      for (var j = 0; j < polygon.getPath().getLength(); j++) {
+        if (google.maps.geometry.poly.containsLocation(polygon.getPath().getAt(j), polygons[i])) {
+          hidePoly = false
+          break;
+        }
+      }
+      if (hidePoly) polygons[i].setMap(null);
+    }
+    for (var j = 0; j < polygon.getPath().getLength(); j++) {
+      for (var i = 0; i < polygons.length; i++) {
+        for (var k = 0; k < polygons[i].getPath().getLength(); k++) {
+          if (google.maps.geometry.poly.containsLocation(polygons[i].getPath().getAt(k), polygon)) {
+            polygons[i].setMap(map)
+            break;
+          }
+        }
+      }
+    }
+  }
+  var polygons = [];
+
+  function drawRects(bounds, verticalBlocks, horizontalBlocks) {
+    var startingLatLng = new google.maps.LatLng(bounds.getNorthEast().lat(),
+      bounds.getSouthWest().lng());
+    var NWcorner = new google.maps.LatLng(bounds.getNorthEast().lat(),
+      bounds.getSouthWest().lng());
+    var SWcorner = bounds.getSouthWest();
+    var verticalBlockSize = google.maps.geometry.spherical.computeDistanceBetween(NWcorner, SWcorner) / verticalBlocks;
+    var NEcorner = bounds.getNorthEast();
+    var horizontalBlockSize = google.maps.geometry.spherical.computeDistanceBetween(NWcorner, NEcorner) / verticalBlocks;
+    var NW = startingLatLng;
+    var longitudes = [];
+    longitudes.push(NW.lng());
+    for (var i = 0; i < verticalBlocks; i++) {
+      var longitude = google.maps.geometry.spherical.computeOffset(NW, horizontalBlockSize, 90).lng();
+      longitudes.push(longitude)
+      NW = new google.maps.LatLng(NW.lat(), longitude);
+    }
+    var NW = startingLatLng;
+    for (var i = 0; i < longitudes.length - 1; i++) {
+      NW = new google.maps.LatLng(startingLatLng.lat(), longitudes[i]);
+      for (var j = 0; j < horizontalBlocks; j++) {
+        var north = NW.lat();
+        var south = google.maps.geometry.spherical.computeOffset(NW, verticalBlockSize, 180).lat();
+        var east = longitudes[i + 1];
+        var west = longitudes[i];
+        var corner1 = new google.maps.LatLng(north, east);
+        var corner2 = new google.maps.LatLng(south, east);
+        var corner3 = new google.maps.LatLng(south, west);
+        var corner4 = new google.maps.LatLng(north, west);
+
+        var polygon = new google.maps.Polygon({
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.25,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          fillOpacity: 0.1,
+          map: map,
+          paths: [corner1, corner2, corner3, corner4]
+        });
+        polygons.push(polygon);
+        NW = new google.maps.LatLng(south, longitudes[i]);
+      }
+      }
+      }
+        function tableCreate() {
+          var body = document.getElementsByTagName("body")[0];
+          var tbl = document.createElement("table");
+          var tblBody = document.createElement("tbody");
+          for (var j = 0; j <= 2; j++) {
+            var row = document.createElement("tr");
+            for (var i = 0; i < 2; i++) {
+              var cell = document.createElement("td");
+              var cellText = document.createTextNode("cell is row " + j + ", column " + i);
+
+              cell.appendChild(cellText);
+              row.appendChild(cell);
+            }
+            tblBody.appendChild(row);
+          }
+
+          tbl.appendChild(tblBody);
+          body.appendChild(tbl);
+          tbl.setAttribute("border", "2");
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdPTn6zjYe28lYdTxA_76YPhebeKlmPIQ&callback=initMap&libraries=geometry"async defer></script>
+  </body>
+</html>
