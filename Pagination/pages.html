@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+    .active, .btn:hover {
+      background-color: #666;
+      color: white;
+    }
+    .wrapper{
+      margin: 60px auto;
+      text-align: center;
+    }
+    #pagination-demo{
+      display: inline-block;
+      margin-bottom: 1.75em;
+    }
+    #pagination-demo li{
+      display: inline-block;
+    }
+    </style>
+  </head>
+  <body>
+
+    <table id="users">
+    </table>
+    <a id="page4" href="#" onclick="dispPage1()">Show page 1</a><br>
+    <a id="page1" href="#" onclick="dispPage2()">Show page 2</a><br>
+    <a id="page2" href="#" onclick="dispPage3()">Show page 3</a><br>
+    <a id="page3" href="#" onclick="dispPage4()">Show page 4</a><br>
+    <div id="myDIV">
+    <button class="btn" onclick="dispPage1()">1</button>
+    <button class="btn active" onclick="dispPage2()">2</button>
+    <button class="btn" onclick="dispPage3()">3</button>
+    <button class="btn" onclick="dispPage4()">4</button>
+    </div>
+    <div class="wrapper">
+    <div class="container">
+    <ul id="pagination-demo" class="pagination-sm"></ul>
+    </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
+    <script type="text/javascript">
+    var api = 'https://reqres.in/api/users?page=1';
+    readApi(api);
+    function prevBtn(){
+
+    }
+    function dispPage1(page){
+      var api = 'https://reqres.in/api/users?page='+page;
+      readApi(api);
+    }
+    function readApi(api){
+      jQuery.getJSON(api).then(function (res) {
+      let html = '';
+      res.data.forEach(user => {
+      html += `<tr>
+          <td><img src="${user.avatar}"></td><td>${user.first_name} ${user.last_name}</td>
+        </tr>`;
+      });
+      jQuery('#users').html(html);
+      });
+    var header = document.getElementById("myDIV");
+    var btns = header.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function() {
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
+      });
+    }
+  }
+    $('#pagination-demo').twbsPagination({
+        totalPages: 10,
+        visiblePages: 6,
+        next: 'Next',
+        prev: 'Prev',
+        onPageClick: function (event, page) {
+            //fetch content and render here
+              dispPage1(page);
+        }
+    });
+    </script>
+  </body>
+</html>
