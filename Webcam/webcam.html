@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <title>WebCam</title>
+   <style type="text/css" media="screen">
+     .btn{
+        color:#C8F283;
+        background-color:#3290A0;
+     }
+     .header{
+       color:#1A639F;
+     }
+     .desc{
+       color:#3E77A5;
+     }
+   </style>
+ </head>
+ <body onload="init();">
+   <h1 class="header">Take a snapshot</h1>
+   <p class="desc">Click on the Start WebCam button.</p>
+   <p>
+   <button class="btn" onclick="startWebcam();">Start WebCam</button>
+   <button class="btn" onclick="stopWebcam();">Stop WebCam</button>
+   <button class="btn" onclick="snapshot();">Take Snapshot</button>
+   <br>
+   </p>
+   <video onclick="snapshot(this);" width=400 height=400 id="video" controls autoplay></video>
+   <p class="desc">Screenshots : <p>
+   <canvas  id="myCanvas" width="400" height="350"></canvas>
+   <p class="desc" id="respons"></p>
+ </body>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script>
+     //--------------------
+     // GET USER MEDIA CODE
+     //--------------------
+         navigator.getUserMedia = ( navigator.getUserMedia ||
+                            navigator.webkitGetUserMedia ||
+                            navigator.mozGetUserMedia ||
+                            navigator.msGetUserMedia);
+
+     var video;
+     var webcamStream;
+     function startWebcam() {
+       if (navigator.getUserMedia) {
+          navigator.getUserMedia (
+
+             // constraints
+             {
+                video: true,
+                audio: false
+             },
+
+             // successCallback
+             function(localMediaStream) {
+                 video = document.querySelector('video');
+                video.srcObject=localMediaStream;
+                webcamStream = localMediaStream;
+             },
+
+             // errorCallback
+             function(err) {
+                console.log("The following error occured: " + err);
+             }
+          );
+       } else {
+          console.log("getUserMedia not supported");
+       }
+     }
+
+     function stopWebcam() {
+       webcamStream.getTracks()[0].stop();
+     }
+     //---------------------
+     // TAKE A SNAPSHOT CODE
+     //---------------------
+     var canvas, ctx;
+
+     function init() {
+       // Get the canvas and obtain a context for
+       // drawing in it
+       canvas = document.getElementById("myCanvas");
+       ctx = canvas.getContext('2d');
+     }
+
+     function snapshot() {
+        debugger;
+        // Draws current image from the video element into the canvas
+        ctx.drawImage(video, 0,0, canvas.width, canvas.height);
+        var dataURI = canvas.toDataURL('image/jpeg');
+        myImage= new Image(100,100);
+        myImage.src = dataURI;
+        $(function () {
+        var customer = {image: "myImage.src"};
+        $.ajax({
+        type: "POST",
+        crossDomain: true,
+        data :JSON.stringify(customer),
+        url: "https://vision.googleapis.com/$discovery/rest?version=v1",
+        contentType: "application/json"
+        });
+        $.ajax({
+        type: 'GET',
+        url: 'https://www.googleapis.com/customsearch/v1?q=',
+        data: { get_param: 'value' },
+        success: function (data) {
+            var names = data
+            $('#respons').html(data);
+            console.log(names);
+            var customer = {image: "myImage.src",response: "names"};
+        }
+        });
+  }
+);
+     }
+
+ </script>
+</html>
